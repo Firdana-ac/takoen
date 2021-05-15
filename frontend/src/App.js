@@ -4,6 +4,8 @@ import Header from "./pages/Home/Header";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Signin from "./pages/Login/Signin";
+import Register from "./pages/Login/Register";
+
 
 function App() {
   return (
@@ -11,13 +13,13 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <Login />
-          </Route>
-          <Route path="/signin">
             <Signin />
           </Route>
+          <Route path="/Register">
+            <Register />
+          </Route>
           <Route path="/login">
-            
+            <Login />
           </Route>
           <Route path="/home">
             <Header />
