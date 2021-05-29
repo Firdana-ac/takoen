@@ -28,11 +28,12 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/byUser/:username", (req, res) => {
+router.get("/byUser", (req, res) => {
   const userName = req.params.username;
+  const userLinkDonation = req.params.link_donation;
   db.query(
-    "SELECT * FROM uploads WHERE author = ?;",
-    userName,
+    "SELECT * FROM users WHERE link_donation = ?;",
+    userName,userLinkDonation,
     (err, results) => {
       if (err) {
         console.log(err);

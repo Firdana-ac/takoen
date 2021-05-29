@@ -5,6 +5,8 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Signin from "./pages/Login/Signin";
 import Register from "./pages/Login/Register";
+import Profile from "./pages/Profile/Profile";
+
 
 
 function App() {
@@ -12,15 +14,23 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
+
           <Route exact path="/">
             <Signin />
           </Route>
+
           <Route path="/Register">
             <Register />
           </Route>
+
           <Route path="/login">
             <Login />
           </Route>
+
+          <Route path="/profile">
+             <Profile />
+          </Route>
+
           <Route path="/home">
             <Header />
             <Home />
