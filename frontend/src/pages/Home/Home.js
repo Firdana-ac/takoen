@@ -1,26 +1,78 @@
 import styled from "styled-components";
 import Leftside from "./Leftside";
 import Main from "./Main";
-import Rightside from "./Rightside";
+import Rightside from "./Rightside"
+import Upload from "./Upload"
 
-const Home = (props) => {
+import React, { useEffect, useState } from "react";
+import Axios from "axios";
+
+
+function Home() {
+  const [uploads, setUploads] = useState([]);
+
+  useEffect(() => {
+    if (!localStorage.getItem("loggedIn")) {
+      localStorage.setItem("loggedIn", false);
+    }
+  }, []);
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/upload").then((response) => {
+      setUploads(response.data);
+    });
+  }, []);
+
+  const likePost = (id, key) => {
+    var tempLikes = uploads;
+    tempLikes[key].likes = tempLikes[key].likes + 1;
+
+    Axios.post("http://localhost:3001/upload/like", {
+      userLiking: localStorage.getItem("username"),
+      postId: id,
+    }).then((response) => {
+      setUploads(tempLikes);
+    });
+  };
+
   return (
     <Container>
       <Section>
-        <h5>
-          <a>Hiring in a hurry? - </a>
-        </h5>
-        <p>
-          Find talented pros in record time with Upwork and keep business
-          moving.
-        </p>
+        <Layout>
+          <Leftside />
+          <Upload />
+            <div className="Home">
+              {uploads.map((val, key) => {
+                return (
+                  <div className="Post">
+                    <div className="Image">
+                      <a cloudName="pedro-machado-inc" publicId={val.image} />
+                    </div>
+                    <div className="Content">
+                      <div className="title">
+                        {" "}
+                        {val.title} / by @{val.author}
+                      </div>
+                      <div className="description">{val.description}</div>
+                    </div>
+                    <div className="Engagement">
+                      <a
+                        id="likeButton"
+                        onClick={() => {
+                          likePost(val.id, key);
+                        }}
+                      />
+                      {val.likes}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          <Rightside />
+        </Layout>
       </Section>
-      <Layout>
-        <Leftside />
-        <Main />
-        <Rightside />
-      </Layout>
     </Container>
+    
   );
 };
 
@@ -77,5 +129,6 @@ const Layout = styled.div`
     padding: 0 5px;
   }
 `;
+
 
 export default Home;

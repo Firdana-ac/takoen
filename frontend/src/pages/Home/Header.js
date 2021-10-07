@@ -57,10 +57,9 @@ const Header = (props) => {
             <User>
               <a>
                 <img src="/images/user.svg" alt="" />
-                <span>Me</span>
+                <span></span>
                 <img src="/images/down-icon.svg" alt="" />
               </a>
-
               <SignOut>
                 <a>Sign Out</a>
               </SignOut>

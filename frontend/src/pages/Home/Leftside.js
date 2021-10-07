@@ -8,7 +8,9 @@ const Leftside = (props) => {
           <CardBackground />
           <a>
             <Photo />
-            <Link>Welcome, there!</Link>
+            <Link>
+            {localStorage.getItem("username")}
+            </Link>
           </a>
           <a>
             <AddPhotoText>Add a photo</AddPhotoText>
